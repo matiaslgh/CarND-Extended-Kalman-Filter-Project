@@ -41,7 +41,17 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   VectorXd h = VectorXd(3);
   h << rho, theta, rho_dot;
 
-  DoUpdate(z - h);
+  VectorXd y = z - h;
+
+  // Angle normalization
+  while (y(1) >  M_PI) {
+    y(1) -= M_PI;
+  }
+  while (y(1) < -M_PI) {
+    y(1) += M_PI;
+  }
+
+  DoUpdate(y);
 }
 
 void KalmanFilter::DoUpdate(const VectorXd &error){
