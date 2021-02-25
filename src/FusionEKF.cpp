@@ -74,8 +74,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       float vx = rho_dot * cos(phi);
       float vy = rho_dot * sin(phi);
 
-      // TODO: Handle values that are too small
-
       // Initialize state
       ekf_.x_ << px, py, vx, vy;
 
